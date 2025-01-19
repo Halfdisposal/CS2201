@@ -3,10 +3,6 @@ import matplotlib.pyplot  as plt
 from matplotlib.animation import FuncAnimation
 
 
-from math import inf
-
-from functools import lru_cache
-@lru_cache(maxsize = 128)
 def bijection(f, domain, lc):
     l, h = domain
     step = 1
