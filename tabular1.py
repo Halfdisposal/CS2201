@@ -1,18 +1,9 @@
 import matplotlib.pyplot as plt
 import numpy as np
 from math import log10
-from typing import Callable
-from functools import lru_cache
 from math import sin
 
-@lru_cache(maxsize = 128)
-def tabular(func: Callable[[float], None], domain: tuple, accuracy: float) -> None:
-
-    '''Calculates almost for any root except if tangent
-    @params
-    function: function
-    domain: tuple, eg: (0, 1)
-    accuracy: float, eg: 0.1'''
+def tabular(func, domain, accuracy):
     low, high = domain
     f = func
     a = accuracy
