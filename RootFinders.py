@@ -3,14 +3,22 @@ import matplotlib.pyplot as plt
 import math
 import random
 
-def Tabular(h, f, domain):
-    a, b = domain
+
+def Tabular(h, f, range):
+    a, b = range
     root = None 
-    while f(a) * f(a + h) > 0 and a + h <= b:
-        root = (a+h, a+2*h)
-        a = a+h
-    print(f'Root at: {root}') 
-    return root
+    step = (b - a)/10
+    found = False
+    while not found:
+        step = (b - a)/10
+        for i in np.arange(a, b, step):
+            if (f(i) * f(i + step) <= 0):
+                a, b = i, i+step
+                break
+        found = step <= h
+    root = (a.item(), b.item())
+    print(f'Root at {root}') 
+
 
 def Bijection(h, f, domain):
     a, b = domain 
