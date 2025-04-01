@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import math 
 import time
 import random
+import scipy.integrate as sp
 
 def Simpson(f, domain, n):
     N = 2*n 
@@ -19,7 +20,7 @@ def Simpson(f, domain, n):
 def f(x):
     return (25 - x**2)**0.5
 
-def diceSimulation():
+def Q3():
     done = False
     rs = []
     throws = []
@@ -42,12 +43,12 @@ def preprocess(input_string):
     output_list = np.setdiff1d(processed_string, stopwords)
     return output_list.tolist()
 
-def Preprocessing():
+def Q5():
     string = "Information Retrieval is the science of search engines"
     output_list = preprocess(string)
     print(output_list)
 
-def Doc():
+def Q67():
     doc1 = "Information Retrieval is the science of search engines"
     doc2 = "This is the age of information technology"
     doc3 = "Mathematics in the language of science" 
@@ -64,6 +65,46 @@ def Doc():
         for word in new_q:
             if word in d:
                 doc_dict['doc' + str(doc_list.index(d) + 1)] += 1
-    print(doc_dict)
+    sorted_dict = dict(sorted(doc_dict.items(), key=lambda item: item[1], reverse=True))
+    print(sorted_dict.keys())
 
-Doc()
+
+
+def Q8():
+    radius_board = 5
+    rn = np.random.normal(loc=radius_board, scale=2, size=100)
+    bin_width = radius_board/5
+    counts = {'bulls_eye' : 0, 'pro' : 0, 'seasoned' : 0, 'improver' : 0, 'beginner' : 0, 'miss' : 0}
+    for val in rn:
+        if val >= 0 and val < bin_width:
+            counts['bulls_eye'] += 1
+        elif val >= bin_width and val < 2*bin_width:
+            counts['pro'] += 1
+        elif val >= 2*bin_width and val < 3*bin_width:
+            counts['seasoned'] += 1
+        elif val >= 3*bin_width and val < 4*bin_width:
+            counts['improver'] += 1
+        elif val >= 4*bin_width and val < 5*bin_width:
+            counts['beginner'] += 1
+        else:
+            counts['miss'] += 1
+    plt.pie(list(counts.values()), labels=list(counts.keys()))
+    plt.show()
+
+
+def Q9():
+    def f6(x):
+        return (6**2 - x**2)**0.5
+    def f5(x):
+        return (5**2 - x**2)**0.5
+    integral2 = Simpson(f6, (0, 6), 100)
+    integral1 = Simpson(f5, (0, 5), 100)
+    net_integral = integral2 - integral1 
+    absolute_integral = sp.quad(f6, 0, 6)[0] - sp.quad(f5, 0, 5)[0]
+    error = abs(absolute_integral - net_integral)*100/absolute_integral
+    print("Simpson integral ", net_integral)
+    print("Actual Integral ", absolute_integral)
+    print("Percent error ", error)
+    
+
+    
