@@ -94,13 +94,13 @@ def Q8():
 
 def Q9():
     def f6(x):
-        return (6**2 - x**2)**0.5
+        return 6 * (1 - (x / 5)**2)**0.5
     def f5(x):
-        return (5**2 - x**2)**0.5
-    integral2 = Simpson(f6, (0, 6), 100)
-    integral1 = Simpson(f5, (0, 5), 100)
+        return (4**2 - x**2)**0.5
+    integral2 = Simpson(f6, (0, 5), 100)
+    integral1 = Simpson(f5, (0, 4), 100)
     net_integral = integral2 - integral1 
-    absolute_integral = sp.quad(f6, 0, 6)[0] - sp.quad(f5, 0, 5)[0]
+    absolute_integral = sp.quad(f6, 0, 5)[0] - sp.quad(f5, 0, 4)[0]
     error = abs(absolute_integral - net_integral)*100/absolute_integral
     print("Simpson integral ", net_integral)
     print("Actual Integral ", absolute_integral)
